@@ -3,6 +3,7 @@ package youzan_func
 import (
 	"bytes"
 	"context"
+	"crypto/tls"
 	"encoding/json/v2"
 	"fmt"
 	"io"
@@ -16,6 +17,15 @@ import (
 	youzan "github.com/shatian114/youzanpay"
 	youzan_model "github.com/shatian114/youzanpay/model"
 )
+
+var tr = &http.Transport{
+	TLSClientConfig: &tls.Config{
+		SessionTicketsDisabled: true,
+		NextProtos:             nil,
+		MinVersion:             tls.VersionTLS12,
+		MaxVersion:             tls.VersionTLS12,
+	},
+}
 
 type Client struct {
 	PubKeyId string
@@ -64,7 +74,7 @@ func (s *Client) Request[T any](ctx context.Context, paramObj any, serverName st
 	}
 	youzan.Logger.Debug(ctx, "有赞请求: ", reqAllByte)
 
-	httpClient := &http.Client{}
+	httpClient := &http.Client{Transport: tr, Timeout: 5 * time.Second}
 	httpRes, err := httpClient.Do(httpReq)
 
 	if err != nil {

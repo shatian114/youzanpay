@@ -7,9 +7,8 @@ import (
 )
 
 // 发起进件
-// TODO: 待完成
-func (s *Client) CreateAccount(ctx context.Context, req *youzan_model.CreateOrderReq) (res *youzan_model.CreateOrderRes, err error) {
-	youzanRes, err := s.Request[youzan_model.CreateOrderRes](ctx, req, "youzan.pay.unified.partner.payopen_apply", "1.0.0")
+func (s *Client) CreateAccount(ctx context.Context, req *youzan_model.CreateAccountReq) (res *youzan_model.CreateAccountRes, err error) {
+	youzanRes, err := s.Request[youzan_model.CreateAccountRes](ctx, req, "youzan.pay.open.user.account_create", "1.0.3")
 	if err != nil {
 		return
 	}

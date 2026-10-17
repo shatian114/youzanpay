@@ -6,19 +6,20 @@ type ComplaintAlipayDetailReq struct {
 }
 
 type ComplaintAlipayDetailRes struct { // 有赞支付宝投诉详情响应
-	ComplaintId          string `json:"complaint_id"`            // 是否必填: 是;长度：0;投诉单号;merchant 内部投诉单号。
-	OutComplaintId       string `json:"out_complaint_id"`        // 是否必填: 是;长度：0;支付宝投诉单号;机构侧投诉单号
-	OutComplaintRecordId string `json:"out_complaint_record_id"` // 是否必填: 是;长度：0;支付宝投诉记录主键;机构侧投诉记录主键，对应支付宝 record_id/id。
-	ChannelSource        string `json:"channel_source"`          // 是否必填: 是;长度：0;投诉来源渠道;投诉来源渠道。
-	OutComplaintMchId    string `json:"out_complaint_mch_id"`    // 是否必填: 是;长度：0;支付宝侧商户号;支付宝侧被投诉商户号。
-	ComplaintDetail      string `json:"complaint_detail"`        // 是否必填: 是;长度：0;投诉详情;投诉详情文本。
-	OutState             string `json:"out_state"`               // 是否必填: 是;长度：0;投诉状态;投诉状态 用户撤诉: DROP_COMPLAIN超时后用户撤诉: DROP_OVERDUE_COMPLAIN超时处理完成用户撤诉: DROP_OVERDUE_PROCESSED处理完成用户撤诉: DROP_PROCESSED超时未处理: OVERDUE超时处理完成: OVERDUE_PROCESSED部分超时未处理: PART_OVERDUE处理完成: PROCESSED处理中: PROCESSING待处理: WAIT_PROCESS
-	OutStateDesc         string `json:"out_state_desc"`          // 是否必填: 是;长度：0;状态说明;投诉状态说明。
-	ComplaintTime        int64  `json:"complaint_time"`          // 是否必填: 是;长度：0;投诉发生时间;投诉发生时间 ms
-	PayerPhone           string `json:"payer_phone"`             // 是否必填: 是;长度：0;消费者联系方式;消费者手机号
-	ProcessTime          int64  `json:"process_time"`            // 是否必填: 是;长度：0;处理时间;处理时间 ms
-	ProcessResult        string `json:"process_result"`          // 是否必填: 是;长度：0;处理结果;处理结果。
-	ProcessRemark        string `json:"process_remark"`          // 是否必填: 是;长度：0;处理备注;处理备注。
+	ComplaintId          string `json:"complaint_id,omitempty"`            // 是否必填: 是;长度：0;投诉单号;merchant 内部投诉单号。
+	OutComplaintId       string `json:"out_complaint_id,omitempty"`        // 是否必填: 是;长度：0;支付宝投诉单号;机构侧投诉单号
+	OutComplaintRecordId string `json:"out_complaint_record_id,omitempty"` // 是否必填: 是;长度：0;支付宝投诉记录主键;机构侧投诉记录主键，对应支付宝 record_id/id。
+	ChannelSource        string `json:"channel_source,omitempty"`          // 是否必填: 是;长度：0;投诉来源渠道;投诉来源渠道。
+	OutComplaintMchId    string `json:"out_complaint_mch_id,omitempty"`    // 是否必填: 是;长度：0;支付宝侧商户号;支付宝侧被投诉商户号。
+	ComplaintDetail      string `json:"complaint_detail,omitempty"`        // 是否必填: 是;长度：0;投诉详情;投诉详情文本。
+	OutState             string `json:"out_state,omitempty"`               // 是否必填: 是;长度：0;投诉状态;投诉状态 用户撤诉: DROP_COMPLAIN超时后用户撤诉: DROP_OVERDUE_COMPLAIN超时处理完成用户撤诉: DROP_OVERDUE_PROCESSED处理完成用户撤诉: DROP_PROCESSED超时未处理: OVERDUE超时处理完成: OVERDUE_PROCESSED部分超时未处理: PART_OVERDUE处理完成: PROCESSED处理中: PROCESSING待处理: WAIT_PROCESS
+	OutStateDesc         string `json:"out_state_desc,omitempty"`          // 是否必填: 是;长度：0;状态说明;投诉状态说明。
+	ComplaintTime        int64  `json:"complaint_time,omitempty"`          // 是否必填: 是;长度：0;投诉发生时间;投诉发生时间 ms
+	PayerPhone           string `json:"payer_phone,omitempty"`             // 是否必填: 是;长度：0;消费者联系方式;消费者手机号
+	ProcessTime          int64  `json:"process_time,omitempty"`            // 是否必填: 是;长度：0;处理时间;处理时间 ms
+	ProcessResult        string `json:"process_result,omitempty"`          // 是否必填: 是;长度：0;处理结果;处理结果。
+	ProcessRemark        string `json:"process_remark,omitempty"`          // 是否必填: 是;长度：0;处理备注;处理备注。
+	ComplaintAmount      string `json:"complaint_amount,omitempty"`        // 金额，单位：元
 }
 
 type ComplaintAlipayReplyReq struct { //回复请求

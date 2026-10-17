@@ -28,11 +28,11 @@ type WithDrawQueryRes struct { // 提现申请查询结果
 	SubMchId        string `json:"sub_mch_id"`        // 是否必填: 是;长度：0;二级子商户号;二级子商户号；又名特约商户
 	OutBizNo        string `json:"out_biz_no"`        // 是否必填: 是;长度：0;提现申请单号;提现申请单号
 	TradeNo         string `json:"trade_no"`          // 是否必填: 是;长度：0;提现收单号;提现收单号
-	Status          string `json:"status"`            // 是否必填: 是;长度：0;提现状态代码;提现状态0, "申请中"，1, "申请成功"，2, "申请失败"，3, "提现处理中"，4, "风控拦截"，5, "提现异常转人工处理"，6, "提现失败"，7, "提现成功"，8,"银行退票"
+	Status          int64  `json:"status"`            // 是否必填: 是;长度：0;提现状态代码;提现状态0, "申请中"，1, "申请成功"，2, "申请失败"，3, "提现处理中"，4, "风控拦截"，5, "提现异常转人工处理"，6, "提现失败"，7, "提现成功"，8,"银行退票"
 	StatusDesc      string `json:"status_desc"`       // 是否必填: 是;长度：0;提现状态描述;见提现状态代码描述
-	ApplyTime       string `json:"apply_time"`        // 是否必填: 是;长度：0;提现申请时间;提现申请时间
-	ProcessTime     string `json:"process_time"`      // 是否必填: 是;长度：0;银行处理时间;银行处理时间
-	FinishTime      string `json:"finish_time"`       // 是否必填: 是;长度：0;到账时间;到账时间
+	ApplyTime       int64  `json:"apply_time"`        // 是否必填: 是;长度：0;提现申请时间;提现申请时间
+	ProcessTime     int64  `json:"process_time"`      // 是否必填: 是;长度：0;银行处理时间;银行处理时间
+	FinishTime      int64  `json:"finish_time"`       // 是否必填: 是;长度：0;到账时间;到账时间
 	FailDesc        string `json:"fail_desc"`         // 是否必填: 是;长度：0;失败原因;失败原因
 	InstructionId   string `json:"instruction_id"`    // 是否必填: 是;长度：0;提现明细号;提现明细号
 	WithdrawAmount  int64  `json:"withdraw_amount"`   // 是否必填: 是;长度：0;提现金额;提现金额

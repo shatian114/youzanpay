@@ -39,9 +39,9 @@ type Deeplink struct { // 有赞公共收银台：对应微信和支付宝的h5�
 	TradeNo string `json:"trade_no,omitempty"` // 商户自有支付宝收银台
 
 	// 微信小程序：有赞公共收银台
-	Path    string `json:"path,omitempty"`
-	AppId   string `json:"appId,omitempty"` // 公共和自有都会返回
-	Urllink string `json:"urllink,omitempty"`
+	Path    string  `json:"path,omitempty"`
+	AppId   string  `json:"appId,omitempty"` // 公共和自有都会返回
+	Urllink *string `json:"urllink,omitempty"`
 
 	// 微信小程序：商户自有收银台
 	TimeStamp string `json:"timeStamp,omitempty"`

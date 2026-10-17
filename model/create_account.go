@@ -1,23 +1,24 @@
 package youzan_model
 
-type CreateAccount struct { // 商户进件请求参数
-	MchId                           string               `json:"mch_id"`                             // 是否必填: 是;长度：32;服务商商户号;有赞支付分配的服务商商户号，用于管理子商户号
-	OutBizNo                        string               `json:"out_biz_no"`                         // 是否必填: 是;长度：32;业务关联账号;业务关联账号；服务商内唯一，由调用方（服务商）自己生成并传入，不是有赞分配的
-	MchName                         string               `json:"mch_name"`                           // 是否必填: 是;长度：32;商户名称;商户名称
-	Phone                           string               `json:"phone"`                              // 是否必填: 是;长度：128;联系电话;联系电话
-	ContractName                    string               `json:"contract_name"`                      // 是否必填: 是;长度：128;联系人姓名;联系人姓名
-	ContractEmail                   string               `json:"contract_email "`                    // 是否必填: 是;长度：128;联系人邮箱;联系人邮箱
-	PaymentBusinessType             int64                `json:"payment_business_type"`              // 是否必填: 否;长度：0;是否收款;0-收款（包含仅收款，或既收款又分账）1-不收款，仅分账不填写时，默认为0
-	CallbackUrl                     string               `json:"callback_url"`                       // 是否必填: 是;长度：512;结果通知地址;用于支付成功结果通知必须为https地址。不携带查询参数, 链接例：https://xxxx.cloud.com/service_api/pay/notify/路径商家自定义设置，域名需要报备给有赞，否则无法正常接收回调请求！！！！！！
-	PrincipalCertType               int64                `json:"principal_cert_type"`                // 是否必填: 是;长度：0;主体认证类型;1: 个人 2: 企业 3: 个体工商户 注意，如果是收款用途需要用企业，如果是分账给个人，可以使用个人资质
-	OpenAccountProtocol             string               `json:"open_account_protocol"`              // 是否必填: 否;长度：128;支付开户协议;支付开户协议 调用资源图片上传接口获取imgKey 并上传
-	MainCategoryCode                string               `json:"main_category_code"`                 // 是否必填: 是;长度：128;主营类目;主营类目传入类目code 即可：类目文档：https://file.yzcdn.cn/upload_files/yz-file/2025/08/14/FqQvsCNBjrQp2jpN0JPAmT1NhQPr.csv?attname=有赞支付类目列表v4.csv建议用文本编辑器打开，excel 等工具会自动格式化类目编码为数字，导致丢失部分字符
-	BusinessSpecialQualificationUrl string               `json:"business_special_qualification_url"` // 是否必填: 条件必传;长度：128;特殊资质照片;如果选中主营类目中，资质要求 不为空，请按照资质要求传入对应资质图片
-	SupplementaryPaperUrlList       []string             `json:"supplementary_paper_url_list"`       // 是否必填: 条件必传;长度：0;补充文件;如果选中主营类目中，资质要求 不为空，按照资质要求传入，如果需要补充文件，传入补充信息即可
-	OrganizationCertInfo            OrganizationCertInfo `json:"organization_cert_info"`             // 是否必填: 否;长度：0;组织信息;参数见 组织信息 非个人类型必传
-	PersonCertInfo                  PersonCertInfo       `json:"person_cert_info"`                   // 是否必填: 是;长度：0;法人信息;参数见 法人代办人信息 个人认证类型，传个人主体信息企业/个体工商户，传法人/代办人信息
-	BankCardInfo                    BankCardInfo         `json:"bank_card_info"`                     // 是否必填: 是;长度：0;结算卡信息;结算卡信息，用于后续资金提现 企业，只支持绑定企业对公同名卡个人   工商户，可支持绑定企业对公同名卡或法人对私卡  个人，只能绑定个人对私卡
-	FinalBeneficiaries              FinalBeneficiaries   `json:"final_beneficiaries"`                // 是否必填: 是;长度：0;最终受益人信息;参数见 最终受益人信息最终受益人信息，当法人非最终受益人时，需要传入最终受益人信息，最多支持4个最终受益人信息
+type CreateAccountReq struct { // 商户进件请求参数
+	MchId                           string               `json:"mch_id,omitempty"`                             // 是否必填: 是;长度：32;服务商商户号;有赞支付分配的服务商商户号，用于管理子商户号
+	OutBizNo                        string               `json:"out_biz_no,omitempty"`                         // 是否必填: 是;长度：32;业务关联账号;业务关联账号；服务商内唯一，由调用方（服务商）自己生成并传入，不是有赞分配的
+	MchName                         string               `json:"mch_name,omitempty"`                           // 是否必填: 是;长度：32;商户名称;商户名称
+	Phone                           string               `json:"phone,omitempty"`                              // 是否必填: 是;长度：128;联系电话;联系电话
+	ContractName                    string               `json:"contract_name,omitempty"`                      // 是否必填: 是;长度：128;联系人姓名;联系人姓名
+	ContractEmail                   string               `json:"contract_email,omitempty"`                     // 是否必填: 是;长度：128;联系人邮箱;联系人邮箱
+	PaymentBusinessType             int64                `json:"payment_business_type,omitempty"`              // 是否必填: 否;长度：0;是否收款;0-收款（包含仅收款，或既收款又分账）1-不收款，仅分账不填写时，默认为0
+	CallbackUrl                     string               `json:"callback_url,omitempty"`                       // 是否必填: 是;长度：512;结果通知地址;用于支付成功结果通知必须为https地址。不携带查询参数, 链接例：https://xxxx.cloud.com/service_api/pay/notify/路径商家自定义设置，域名需要报备给有赞，否则无法正常接收回调请求！！！！！！
+	PrincipalCertType               int64                `json:"principal_cert_type,omitempty"`                // 是否必填: 是;长度：0;主体认证类型;1: 个人 2: 企业 3: 个体工商户 注意，如果是收款用途需要用企业，如果是分账给个人，可以使用个人资质
+	OpenAccountProtocol             string               `json:"open_account_protocol,omitempty"`              // 是否必填: 否;长度：128;支付开户协议;支付开户协议 调用资源图片上传接口获取imgKey 并上传
+	MainCategoryCode                string               `json:"main_category_code,omitempty"`                 // 是否必填: 是;长度：128;主营类目;主营类目传入类目code 即可：类目文档：https://file.yzcdn.cn/upload_files/yz-file/2025/08/14/FqQvsCNBjrQp2jpN0JPAmT1NhQPr.csv?attname=有赞支付类目列表v4.csv建议用文本编辑器打开，excel 等工具会自动格式化类目编码为数字，导致丢失部分字符
+	BusinessSpecialQualificationUrl string               `json:"business_special_qualification_url,omitempty"` // 是否必填: 条件必传;长度：128;特殊资质照片;如果选中主营类目中，资质要求 不为空，请按照资质要求传入对应资质图片
+	SupplementaryPaperUrlList       []string             `json:"supplementary_paper_url_list,omitempty"`       // 是否必填: 条件必传;长度：0;补充文件;如果选中主营类目中，资质要求 不为空，按照资质要求传入，如果需要补充文件，传入补充信息即可
+	OrganizationCertInfo            OrganizationCertInfo `json:"organization_cert_info,omitempty"`             // 是否必填: 否;长度：0;组织信息;参数见 组织信息 非个人类型必传
+	PersonCertInfo                  PersonCertInfo       `json:"person_cert_info,omitempty"`                   // 是否必填: 是;长度：0;法人信息;参数见 法人代办人信息 个人认证类型，传个人主体信息企业/个体工商户，传法人/代办人信息
+	BankCardInfo                    BankCardInfo         `json:"bank_card_info,omitempty"`                     // 是否必填: 是;长度：0;结算卡信息;结算卡信息，用于后续资金提现 企业，只支持绑定企业对公同名卡个人   工商户，可支持绑定企业对公同名卡或法人对私卡  个人，只能绑定个人对私卡
+	FinalBeneficiaries              []FinalBeneficiaries `json:"final_beneficiaries,omitempty"`                // 是否必填: 是;长度：0;最终受益人信息;参数见 最终受益人信息最终受益人信息，当法人非最终受益人时，需要传入最终受益人信息，最多支持4个最终受益人信息
+	MchShortName                    string               `json:"mch_short_name,omitempty"`                     // 是否必填: 是;长度：50;商户简称
 }
 
 // 进件所需信息
@@ -103,10 +104,4 @@ type QueryCreateAccountStatusRes struct { // 查询上级进件结果响应
 	Status         string            `json:"status"`
 	FailDesc       string            `json:"fail_desc"`
 	FailDetailDesc map[string]string `json:"fail_detail_desc"`
-}
-
-type ChangeMchShortNameReq struct {
-	SubMchId          string `json:"sub_mch_id,omitempty"`
-	ChannelSubMchId   string `json:"channel_sub_mch_id,omitempty"`
-	MerchantShortName string `json:"merchant_short_name,omitempty"`
 }

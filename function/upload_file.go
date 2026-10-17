@@ -44,19 +44,21 @@ func (s *Client) UpFile(ctx context.Context, bArr []byte) (imgKey string, err er
 	req.Header.Set("noncestr", noncestr)
 	req.Header.Set("sign", sign)
 	req.Header.Set("mchid", s.MchId)
-	httpClient := http.Client{}
+	httpClient := http.Client{Timeout: 5 * time.Second}
 	res, err := httpClient.Do(req)
 	if err != nil {
 		err = fmt.Errorf("http 请求出错: %s", err.Error())
 		return
 	}
 	defer res.Body.Close()
+
 	resBArr, err := io.ReadAll(res.Body)
 	if err != nil {
 		err = fmt.Errorf("读取 http 结果出错: %s", err.Error())
 		return
 	}
-	resCommon := youzan_model.YouZanResCommon[youzan_model.UploadFileRes]{}
+	youzan.Logger.Info(ctx, "有赞上传图片返回: ", string(resBArr))
+	resCommon := youzan_model.YouZanResCommon[string]{}
 	err = json.Unmarshal(resBArr, &resCommon)
 	if err != nil {
 		err = fmt.Errorf("转换有赞结果出错: %s", err)
@@ -71,10 +73,12 @@ func (s *Client) UpFile(ctx context.Context, bArr []byte) (imgKey string, err er
 		err = fmt.Errorf("解码有赞上传文件的imageKey出错: %s", err.Error())
 		return
 	}
-	if resCommon.Data.ImageKey == "" {
+	youzanUploadFileRes := youzan_model.UploadFileRes{}
+	err = json.Unmarshal([]byte(resCommon.Data), &youzanUploadFileRes)
+	if youzanUploadFileRes.ImageKey == "" {
 		err = fmt.Errorf("有赞上传文件提示成功，但是没有返回imageKey")
 		return
 	}
-	imgKey = resCommon.Data.ImageKey
+	imgKey = youzanUploadFileRes.ImageKey
 	return
 }
