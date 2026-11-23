@@ -25,7 +25,7 @@ func (s *Client) VerifySign(ctx context.Context, resHeader *http.Header, resStr 
 	}
 	verifySignContent := fmt.Sprintf("%s\n%d\n%s\n", *resStr, resTimestamp, resHeader.Get("Youzan-Noncestr"))
 	resSign := resHeader.Get("Youzan-Sign")
-	err = verifysign.VerifySign(ctx, s.PubKey, resSign, verifySignContent)
+	err = verifysign.VerifySign(s.PubKey, resSign, verifySignContent)
 	if err != nil {
 		err = fmt.Errorf("有赞验签失败")
 		return

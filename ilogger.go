@@ -10,29 +10,27 @@ type ILogger interface {
 	Debug(ctx context.Context, v ...any)
 }
 
-var Logger ILogger = &noopLogger{}
+var Logger ILogger
 
-type noopLogger struct{}
-
-func (s *noopLogger) Debug(ctx context.Context, v ...any) {
+func Debug(ctx context.Context, v ...any) {
 	if Logger != nil {
 		Logger.Debug(ctx, v)
 	}
 }
 
-func (s *noopLogger) Info(ctx context.Context, v ...any) {
+func Info(ctx context.Context, v ...any) {
 	if Logger != nil {
 		Logger.Info(ctx, v)
 	}
 }
 
-func (s *noopLogger) Error(ctx context.Context, v ...any) {
+func Error(ctx context.Context, v ...any) {
 	if Logger != nil {
 		Logger.Error(ctx, v)
 	}
 }
 
-func (s *noopLogger) Fatal(ctx context.Context, v ...any) {
+func Fatal(ctx context.Context, v ...any) {
 	if Logger != nil {
 		Logger.Fatal(ctx, v)
 	}

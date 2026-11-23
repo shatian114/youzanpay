@@ -21,7 +21,7 @@ func (s *Client) UpFile(ctx context.Context, bArr []byte) (imgKey string, err er
 	timestampStr := strconv.FormatInt(time.Now().Unix(), 10)
 	noncestr := youzan.RandStr(32)
 	signStr := fmt.Sprintf("%s\n%s\n%s\n\n%s\n", "media.photo.upload", timestampStr, noncestr, s.MchId)
-	sign, err := verifysign.BuildSign(ctx, signStr, s.PrivKey)
+	sign, err := verifysign.BuildSign(signStr, s.PrivKey)
 
 	body := bytes.NewBuffer(nil)
 	writer := multipart.NewWriter(body)
@@ -57,7 +57,7 @@ func (s *Client) UpFile(ctx context.Context, bArr []byte) (imgKey string, err er
 		err = fmt.Errorf("读取 http 结果出错: %s", err.Error())
 		return
 	}
-	youzan.Logger.Info(ctx, "有赞上传图片返回: ", string(resBArr))
+	youzan.Info(ctx, "有赞上传图片返回: ", string(resBArr))
 	resCommon := youzan_model.YouZanResCommon[string]{}
 	err = json.Unmarshal(resBArr, &resCommon)
 	if err != nil {

@@ -51,7 +51,7 @@ func (s *Client) Request[T any](ctx context.Context, paramObj any, serverName st
 	noncestr := youzan.RandStr(32)
 	signStr := fmt.Sprintf("%s\n%s\n%s\n%s\n%s\n", serverName, timestampStr, noncestr, bodyJson, s.MchId)
 
-	sign, err := verifysign.BuildSign(ctx, signStr, s.PrivKey)
+	sign, err := verifysign.BuildSign(signStr, s.PrivKey)
 
 	httpReq, err := http.NewRequest(http.MethodPost, youzan.ApiUrl+path, bytes.NewReader(paramByte))
 	if err != nil {
@@ -70,9 +70,9 @@ func (s *Client) Request[T any](ctx context.Context, paramObj any, serverName st
 	reqAllByte, err := httputil.DumpRequest(httpReq, true)
 	if err != nil {
 
-		youzan.Logger.Error(ctx, "获取有赞请求数据出错: ", err.Error())
+		youzan.Error(ctx, "获取有赞请求数据出错: ", err.Error())
 	}
-	youzan.Logger.Debug(ctx, "有赞请求: ", reqAllByte)
+	youzan.Debug(ctx, "有赞请求: ", reqAllByte)
 
 	httpClient := &http.Client{Transport: tr, Timeout: 5 * time.Second}
 	httpRes, err := httpClient.Do(httpReq)
@@ -85,9 +85,9 @@ func (s *Client) Request[T any](ctx context.Context, paramObj any, serverName st
 
 	resAllByte, err := httputil.DumpResponse(httpRes, true)
 	if err != nil {
-		youzan.Logger.Error(ctx, "获取有赞请响应据出错: ", err.Error())
+		youzan.Error(ctx, "获取有赞请响应据出错: ", err.Error())
 	}
-	youzan.Logger.Debug(ctx, "有赞响应: ", resAllByte)
+	youzan.Debug(ctx, "有赞响应: ", resAllByte)
 
 	resByte, err := io.ReadAll(httpRes.Body)
 	if err != nil {
